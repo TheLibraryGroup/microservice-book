@@ -1,0 +1,12 @@
+FROM postgres:latest
+COPY db_thelibrary_dev.sql /docker-entrypoint-initdb.d/init.sql
+COPY cron-backup-db.sh /opt/cron-backup-db.sh
+COPY sys /etc/cron.d/sys
+RUN apt-get update \
+&& apt-get install vim -y \
+&& export EDITOR=/usr/bin/vim \
+&& chmod +x /opt/cron-backup-db.sh \
+&& cd /opt \
+&& mkdir db_backup \
+&& service cron reload \
+&& service cron start \

@@ -1,0 +1,61 @@
+
+version: '3.7'
+
+services:
+    db-thelibrary:
+        build:
+            context: ./db
+            dockerfile: Dockerfile-db
+        container_name: cont-db-thelibrary
+        restart: unless-stopped
+        ports:
+            - 5432:5432
+        environment:
+            POSTGRES_DB: db_thelibrary
+            POSTGRES_USER: admin_thelibrary
+            POSTGRES_PASSWORD: 123
+        volumes:
+            - db_data:/var/lib/postgres/data
+        networks:
+            - network-thelibrary
+
+    back-thelibrary:
+        depends_on:
+            - db-thelibrary
+        build:
+            context: ./build/back
+            dockerfile: Dockerfile
+        container_name: cont-back-thelibrary
+        ports:
+            - '127.0.0.1:8090:8090'
+        environment:
+            SPRING_PROFILES_ACTIVE: dev
+            SPRING_DATASOURCE_USERNAME: admin_thelibrary
+            SPRING_DATASOURCE_PASSWORD: 123
+            SPRING_DATASOURCE_URL: jdbc:postgresql://db-thelibrary:5432/thelibrary_book?currentSchema=dev
+        networks:
+            - network-thelibrary
+
+    front-thelibrary:
+        build:
+            context: .
+            dockerfile: build/front/Dockerfile-front
+        container_name: cont-front-thelibrary
+        volumes:
+            - 'front:/app/node_modules'
+        ports:
+            - '127.0.0.1:4200:4200'
+        networks:
+            - network-thelibrary
+
+networks:
+    network-thelibrary:
+        driver: bridge
+        #        ipam:
+        #            config:
+        #                - subnet: 172.5.0.0/16
+
+volumes:
+    front:
+    db_data:
+

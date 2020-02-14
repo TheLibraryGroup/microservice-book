@@ -1,0 +1,69 @@
+
+version: '3.7'
+
+services:
+
+    db-keycloak:
+        image: postgres
+        container_name: cont-db-keycloak
+        restart: always
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+        environment:
+            POSTGRES_DB: keycloak
+            POSTGRES_USER: keycloak
+            POSTGRES_PASSWORD: password
+        networks:
+           - network-keycloak
+
+    keycloak:
+        depends_on:
+            - db-keycloak
+        image: jboss/keycloak
+        container_name: cont-keycloak
+        environment:
+            KEYCLOAK_HOSTNAME: www.auth.thelibrary.mypoc.online
+            KEYCLOAK_ALWAYS_HTTPS: 'true'
+            PROXY_ADDRESS_FORWARDING: 'true'
+            KEYCLOAK_LOGLEVEL: DEBUG
+            KEYCLOAK_USER: admin
+            KEYCLOAK_PASSWORD: admin
+            DB_VENDOR: POSTGRES
+            DB_ADDR: db-keycloak
+            DB_PORT: 5432
+            DB_DATABASE: keycloak
+            DB_USER: keycloak
+            DB_SCHEMA: public
+            DB_PASSWORD: password
+            # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the PostgreSQL JDBC driver documentation in order to use it.
+#            JDBC_PARAMS: "ssl=true"
+        command:
+            -Djboss.socket.binding.port-offset=001
+        ports:
+            - '127.0.0.1:8081:8081'
+            - '127.0.0.1:8443:8443'
+        volumes:
+            - config:/config/
+        networks:
+            - network-keycloak
+
+networks:
+    network-keycloak:
+        driver: bridge
+        #        ipam:
+        #            config:
+        #                - subnet: 172.5.0.0/16
+
+volumes:
+    config:
+        driver: local
+        driver_opts:
+            type: 'none'
+            o: 'bind'
+            device: '/srv/keycloak/config'
+    postgres_data:
+        driver: local
+        driver_opts:
+            type: 'none'
+            o: 'bind'
+            device: '/srv/keycloak/postgres_data'
