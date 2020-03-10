@@ -3,8 +3,6 @@ package org.thibaut.thelibrary.dto;
 import lombok.*;
 import org.joda.time.DateTime;
 
-import java.util.List;
-
 @Getter
 @Setter
 @Builder
@@ -21,10 +19,6 @@ public class UserDTO {
 	private String userName;
 	private DateTime registrationDate;
 
-	private List< RoleDTO > roleList;
-
 	private CoordinatesDTO coordinates;
-
-	private List< LoanDTO > loanList;
 
 }

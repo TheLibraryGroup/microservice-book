@@ -16,7 +16,9 @@ import java.util.List;
 public class AuthorEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "author_generator")
+	@SequenceGenerator(name="author_generator", sequenceName = "author_seq", initialValue = 1, allocationSize = 1)
+	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
 
 	private String firstName;

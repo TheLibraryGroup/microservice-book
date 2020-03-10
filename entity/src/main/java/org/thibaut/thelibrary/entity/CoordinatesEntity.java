@@ -15,7 +15,9 @@ import javax.persistence.*;
 public class CoordinatesEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "coordinates_generator")
+	@SequenceGenerator(name="coordinates_generator", sequenceName = "coordinates_seq", initialValue = 1, allocationSize = 1)
+	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
 
 	private String street;
@@ -26,9 +28,6 @@ public class CoordinatesEntity {
 	private String phone;
 	private String email;
 
-
-	@OneToOne(mappedBy = "coordinates")
-	private UserEntity user;
 
 	@OneToOne(mappedBy = "coordinates")
 	private EditorEntity editor;

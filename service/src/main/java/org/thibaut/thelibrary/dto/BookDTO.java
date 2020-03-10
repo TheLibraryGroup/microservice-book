@@ -1,5 +1,6 @@
 package org.thibaut.thelibrary.dto;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.joda.time.DateTime;
 
@@ -11,13 +12,16 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
+//@JsonIdentityInfo(
+//		generator= ObjectIdGenerators.PropertyGenerator.class,
+//		property="id")
 public class BookDTO {
 
 	private Long id;
 
 	private String title;
 
-	private List< CategoryDTO > categorieList;
+	private List< CategoryDTO > categoryList;
 
 	private String language;
 
@@ -29,9 +33,9 @@ public class BookDTO {
 
 	private List< AuthorDTO > authorList;
 
-	private List< LibraryDTO > librarieList;
+	private List< LibraryDTO > libraryList;
 
+	@JsonManagedReference
 	private EditorDTO editor;
 
-	private List< LoanDTO > loanList;
 }

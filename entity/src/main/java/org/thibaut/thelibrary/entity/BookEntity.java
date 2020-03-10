@@ -17,7 +17,9 @@ import java.util.List;
 public class BookEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "book_generator")
+	@SequenceGenerator(name="book_generator", sequenceName = "book_seq", initialValue = 1, allocationSize = 1)
+	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
 
 	private String title;
@@ -50,9 +52,5 @@ public class BookEntity {
 	@ManyToOne
 	@JoinColumn(name = "editor_id")
 	private EditorEntity editor;
-
-	@OneToMany(mappedBy = "book")
-	private List< LoanEntity > loanList;
-
 
 }

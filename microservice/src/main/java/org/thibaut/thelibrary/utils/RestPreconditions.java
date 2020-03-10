@@ -44,4 +44,13 @@ public final class RestPreconditions {
         return resource;
     }
 
+
+	public static <T> T checkNull(final T resource) {
+		if (resource == null) {
+			throw new NullPointerException();
+		}
+		return resource;
+	}
+
+
 }

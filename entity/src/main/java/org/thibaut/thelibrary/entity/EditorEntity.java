@@ -16,7 +16,9 @@ import java.util.List;
 public class EditorEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "editor_generator")
+	@SequenceGenerator(name="editor_generator", sequenceName = "editor_seq", initialValue = 1, allocationSize = 1)
+	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
 	private String name;
 
@@ -24,7 +26,7 @@ public class EditorEntity {
 	@JoinColumn(name = "coordinates_id")
 	private CoordinatesEntity coordinates;
 
-	@OneToMany(mappedBy = "editor")
+	@OneToMany(mappedBy = "editor", fetch = FetchType.LAZY)
 	private List< BookEntity > bookList;
 
 }

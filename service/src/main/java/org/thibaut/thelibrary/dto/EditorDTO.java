@@ -1,6 +1,9 @@
 package org.thibaut.thelibrary.dto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -8,6 +11,9 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
+//@JsonIdentityInfo(
+//		generator= ObjectIdGenerators.PropertyGenerator.class,
+//		property="id")
 public class EditorDTO {
 
 	private Long id;
@@ -15,6 +21,7 @@ public class EditorDTO {
 
 	private CoordinatesDTO coordinates;
 
-//	private List< BookDTO > bookList;
+	@JsonBackReference
+	private List< BookDTO > bookList;
 
 }

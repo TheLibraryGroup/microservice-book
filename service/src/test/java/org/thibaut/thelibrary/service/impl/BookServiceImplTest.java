@@ -46,7 +46,7 @@ class BookServiceImplTest {
 
 		when(bookRepository.findById( anyLong() )).thenReturn( Optional.ofNullable( mockedBook ) );
 
-		final BookDTO bookDTO = bookService.getBookById( 5L );
+		final BookDTO bookDTO = bookService.findById( 5L );
 
 		Assertions.assertNotNull( bookDTO );
 		Assertions.assertEquals( "Fondation", bookDTO.getTitle() );

@@ -1,6 +1,8 @@
 package org.thibaut.thelibrary.mapper;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 import org.thibaut.thelibrary.dto.EditorDTO;
 import org.thibaut.thelibrary.entity.EditorEntity;
@@ -13,12 +15,18 @@ public interface EditorMapper {
 
 	EditorMapper INSTANCE = Mappers.getMapper( EditorMapper.class );
 
-	EditorDTO editorToDTO( EditorEntity editorEntity );
 
-	List<EditorDTO> editorToDTOList( List< EditorEntity > editorEntityList );
+	EditorDTO toDTO( EditorEntity editorEntity );
 
-	EditorEntity editorToEntity( EditorDTO editorDTO );
+//	@InheritInverseConfiguration
+	@Named( "noEditor" )
+	@Mapping(source = "bookList", target = "bookList", qualifiedByName = "noEditor")
+	EditorDTO toDTOnoEditor( EditorEntity editorEntity );
 
-	List<EditorEntity> editorToEntityList( List< EditorDTO > editorDTOList );
+	List<EditorDTO> toDTOList( List< EditorEntity > editorEntityList );
+
+	EditorEntity toEntity( EditorDTO editorDTO );
+
+	List<EditorEntity> toEntityList( List< EditorDTO > editorDTOList );
 
 }

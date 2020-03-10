@@ -16,7 +16,9 @@ import java.util.List;
 public class CategoryEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "category_generator")
+	@SequenceGenerator(name="category_generator", sequenceName = "category_seq", initialValue = 1, allocationSize = 1)
+	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
 
 	@ManyToMany(mappedBy = "categoryList" )

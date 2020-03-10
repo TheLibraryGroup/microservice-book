@@ -7,9 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-import org.thibaut.thelibrary.dto.BookDTO;
+import org.thibaut.thelibrary.dto.EditorDTO;
 import org.thibaut.thelibrary.exception.ResourceNotFoundException;
-import org.thibaut.thelibrary.service.contract.BookService;
+import org.thibaut.thelibrary.service.contract.EditorService;
 import org.thibaut.thelibrary.utils.RestPreconditions;
 import org.thibaut.thelibrary.utils.SingleResourceRetrievedEvent;
 
@@ -20,80 +20,80 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
 @CrossOrigin("*")
-public class BookController {
+public class EditorController {
 
-	private BookService bookService;
+	private EditorService editorService;
 	private ApplicationEventPublisher eventPublisher;
 
 
-	@GetMapping("/book/{id}")
-	public BookDTO findById( @PathVariable("id") @NonNull Long id){
+	@GetMapping("/editor/{id}")
+	public EditorDTO findById( @PathVariable("id") @NonNull Long id){
 		try {
-			BookDTO bookDTO = RestPreconditions.checkFound( bookService.findById( id ) );
+			EditorDTO editorDTO = RestPreconditions.checkFound( editorService.findById( id ) );
 //			eventPublisher.publishEvent( new SingleResourceRetrievedEvent(this, response) );
-			return bookDTO;
+			return editorDTO;
 		}
 		catch ( NullPointerException ex ){
 			throw new ResponseStatusException( HttpStatus.NO_CONTENT, "The book ID to find is null", ex );
 		}
 		catch ( ResourceNotFoundException ex ){
-			throw new ResponseStatusException( HttpStatus.NOT_FOUND, "Book not found", ex );
+			throw new ResponseStatusException( HttpStatus.NOT_FOUND, "Editor not found", ex );
 		}
 	}
 
 
-	@GetMapping("/books")
-	public List<BookDTO> findAll(HttpServletResponse response){
+	@GetMapping("/editors")
+	public List<EditorDTO> findAll(HttpServletResponse response){
 		try {
-			List<BookDTO> bookDTOList = RestPreconditions.checkFound( bookService.findAll( ) );
+			List<EditorDTO> editorDTOList = RestPreconditions.checkFound( editorService.findAll( ) );
 			eventPublisher.publishEvent( new SingleResourceRetrievedEvent(this, response) );
-			return bookDTOList;
+			return editorDTOList;
 		}
 		catch ( ResourceNotFoundException ex ){
-			throw new ResponseStatusException( HttpStatus.NO_CONTENT, "No book found", ex );
+			throw new ResponseStatusException( HttpStatus.NO_CONTENT, "No editor found", ex );
 		}
 	}
 
 
-	@PostMapping("/book")
-	public BookDTO save( @RequestBody BookDTO bookDTO, HttpServletResponse response ){
+	@PostMapping("/editor")
+	public EditorDTO save( @RequestBody EditorDTO editorDTO, HttpServletResponse response ){
 		try {
-			RestPreconditions.checkFound( bookDTO );
-			BookDTO bookDTOToSave	= bookService.save( bookDTO );
+			RestPreconditions.checkFound( editorDTO );
+			EditorDTO editorDTOToSave	= editorService.save( editorDTO );
 			eventPublisher.publishEvent( new SingleResourceRetrievedEvent(this, response) );
-			return bookDTOToSave;
+			return editorDTOToSave;
 		}
 		catch ( ResourceNotFoundException ex ){
-			throw new ResponseStatusException( HttpStatus.NO_CONTENT, "The book to save is null", ex );
+			throw new ResponseStatusException( HttpStatus.NO_CONTENT, "The editor to save is null", ex );
 		}
 	}
 
 
-	@DeleteMapping("/book")
+	@DeleteMapping("/editor")
 	public void delete( @PathVariable("id") Long id, HttpServletResponse response ){
 		try {
 			RestPreconditions.checkNull(  id );
-			bookService.deleteById( id );
+			editorService.deleteById( id );
 			eventPublisher.publishEvent( new SingleResourceRetrievedEvent(this, response) );
 		}
 		catch ( NullPointerException ex ){
-			throw new ResponseStatusException( HttpStatus.NO_CONTENT, "The book ID to delete is null", ex );
+			throw new ResponseStatusException( HttpStatus.NO_CONTENT, "editor ID to delete is null", ex );
 		}
 		catch ( ResourceNotFoundException ex ){
-			throw new ResponseStatusException( HttpStatus.NOT_FOUND, "The book to delete cannot be found", ex );
+			throw new ResponseStatusException( HttpStatus.NOT_FOUND, "editor to delete cannot be found", ex );
 		}
 	}
 
 
-	@DeleteMapping("/books")
+	@DeleteMapping("/editors")
 	public void deleteList( @RequestBody() List<Long> idList, HttpServletResponse response ){
 		try {
 			RestPreconditions.checkFound( idList );
-			bookService.deleteList( idList );
+			editorService.deleteList( idList );
 			eventPublisher.publishEvent( new SingleResourceRetrievedEvent(this, response) );
 		}
 		catch ( ResourceNotFoundException ex ){
-			throw new ResponseStatusException( HttpStatus.NO_CONTENT, "Book list to delete is null", ex );
+			throw new ResponseStatusException( HttpStatus.NO_CONTENT, "Editor list to delete is null", ex );
 		}
 	}
 }

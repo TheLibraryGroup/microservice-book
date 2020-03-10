@@ -16,7 +16,9 @@ import java.util.List;
 public class LibraryEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "library_generator")
+	@SequenceGenerator(name="library_generator", sequenceName = "library_seq", initialValue = 1, allocationSize = 1)
+	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
 	private String name;
 

@@ -7,15 +7,15 @@ import java.util.List;
 
 public interface BookService {
 
-	BookDTO getBookById( Long id );
+	BookDTO findById( Long id );
 
 	List< BookEntity > getBookByTitle( String title );
 
-	List<BookDTO> getBookDTOList( );
+	List<BookDTO> findAll( );
 
 	BookDTO save( BookDTO bookDTO );
 
-	void delete( Long id );
+	void deleteById( Long id );
 
 	void deleteList( List< Long > idList );
 }
