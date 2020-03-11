@@ -20,6 +20,7 @@ public class BookDTO {
 
 	private String title;
 
+//	@JsonManagedReference
 	private List< CategoryDTO > categoryList;
 
 	private String language;

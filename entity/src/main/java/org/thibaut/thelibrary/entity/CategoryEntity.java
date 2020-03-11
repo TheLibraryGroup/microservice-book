@@ -21,7 +21,7 @@ public class CategoryEntity {
 	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
 
-	@ManyToMany(mappedBy = "categoryList" )
+	@ManyToMany(mappedBy = "categoryList", fetch = FetchType.LAZY)
 	private List< BookEntity > bookList;
 
 	private String category;

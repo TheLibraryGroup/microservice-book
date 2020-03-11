@@ -42,7 +42,7 @@ public class BookEntity {
 	@ManyToMany(mappedBy = "bookList")
 	private List< AuthorEntity > authorList;
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
 			name = "books_of_libraries",
 			joinColumns = { @JoinColumn(name = "book_id") },

@@ -1,42 +1,37 @@
 package org.thibaut.thelibrary.mapper;
 
-import org.mapstruct.IterableMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Named;
-import org.mapstruct.factory.Mappers;
+import org.mapstruct.*;
 import org.thibaut.thelibrary.dto.CategoryDTO;
+import org.thibaut.thelibrary.dto.CycleAvoidingMappingContext;
 import org.thibaut.thelibrary.entity.CategoryEntity;
 
 import java.util.List;
 
 
-@Mapper(uses = BookMapper.class)
+@Mapper(componentModel = "spring",uses = BookMapper.class)
 public interface CategoryMapper {
-
-	CategoryMapper INSTANCE = Mappers.getMapper( CategoryMapper.class );
 
 
 	@Named( "NoCategory" )
 	@Mapping(target = "bookList", qualifiedByName = "NoCategory")
-	CategoryDTO toDTO( CategoryEntity categoryEntity );
+	CategoryDTO toDTO( CategoryEntity categoryEntity , @Context CycleAvoidingMappingContext context);
 
-//	@Named( "NoBook" )
-//	@Mapping(target = "bookList", ignore = true)
-//	CategoryDTO toDTONoBook( CategoryEntity categoryEntity );
+	@Named( "NoBook" )
+	@Mapping(target = "bookList", ignore = true)
+	CategoryDTO toDTONoBook( CategoryEntity categoryEntity , @Context CycleAvoidingMappingContext context);
 
 
 	@Named( "NoCategory" )
 	@IterableMapping(qualifiedByName="NoCategory")
-	List<CategoryDTO> toDTOList( List< CategoryEntity > categoryEntityList );
+	List<CategoryDTO> toDTOList( List< CategoryEntity > categoryEntityList , @Context CycleAvoidingMappingContext context);
 
-//	@Named( "NoBook" )
-//	@IterableMapping(qualifiedByName="NoBook")
-//	List<CategoryDTO> toDTOListNoBook( List< CategoryEntity > categoryEntityList );
+	@Named( "NoBook" )
+	@IterableMapping(qualifiedByName="NoBook")
+	List<CategoryDTO> toDTOListNoBook( List< CategoryEntity > categoryEntityList , @Context CycleAvoidingMappingContext context);
 
 
-	CategoryEntity toEntity( CategoryDTO categoryDTO );
+	CategoryEntity toEntity( CategoryDTO categoryDTO , @Context CycleAvoidingMappingContext context);
 
-	List<CategoryEntity> toEntityList( List< CategoryDTO > categoryDTOList );
+	List<CategoryEntity> toEntityList( List< CategoryDTO > categoryDTOList , @Context CycleAvoidingMappingContext context);
 
 }

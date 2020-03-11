@@ -16,5 +16,6 @@ public class CategoryDTO {
 
 	private String category;
 
+//	@JsonBackReference
 	private List< BookDTO > bookList;
 }
