@@ -3,7 +3,6 @@ package org.thibaut.thelibrary.service.impl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.thibaut.thelibrary.dto.BookDTO;
-import org.thibaut.thelibrary.dto.CycleAvoidingMappingContext;
 import org.thibaut.thelibrary.entity.BookEntity;
 import org.thibaut.thelibrary.mapper.BookMapper;
 import org.thibaut.thelibrary.repository.BookRepository;
@@ -20,7 +19,7 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public BookDTO findById( Long id ){
-		return bookMapper.toDTO( bookRepository.getOne( id ), new CycleAvoidingMappingContext());
+		return bookMapper.toDTO( bookRepository.getOne( id )/*, new CycleAvoidingMappingContext()*/);
 	}
 
 
@@ -32,13 +31,13 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public List<BookDTO> findAll( ){
-		return bookMapper.toDTOList( bookRepository.findAll(), new CycleAvoidingMappingContext());
+		return bookMapper.toDTOList( bookRepository.findAll()/*, new CycleAvoidingMappingContext()*/);
 	}
 
 
 	@Override
 	public BookDTO save( BookDTO bookDTO ){
-		bookRepository.save( bookMapper.toEntity( bookDTO, new CycleAvoidingMappingContext() ) );
+		bookRepository.save( bookMapper.toEntity( bookDTO/*, new CycleAvoidingMappingContext()*/ ) );
 		return bookDTO;
 	}
 

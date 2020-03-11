@@ -4,17 +4,14 @@ import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
-import org.mapstruct.factory.Mappers;
 import org.thibaut.thelibrary.dto.EditorDTO;
 import org.thibaut.thelibrary.entity.EditorEntity;
 
 import java.util.List;
 
 
-@Mapper(uses = BookMapper.class)
+@Mapper(componentModel = "spring", uses = BookMapper.class)
 public interface EditorMapper {
-
-	EditorMapper INSTANCE = Mappers.getMapper( EditorMapper.class );
 
 	@Named( "NoEditor" )
 	@Mapping(target = "bookList", qualifiedByName = "NoEditor")
@@ -37,5 +34,4 @@ public interface EditorMapper {
 	EditorEntity toEntity( EditorDTO editorDTO );
 
 	List<EditorEntity> toEntityList( List< EditorDTO > editorDTOList );
-
 }

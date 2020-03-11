@@ -14,28 +14,29 @@ import java.util.List;
 public class EditorServiceImpl implements EditorService {
 
 	private EditorRepository editorRepository;
+	private EditorMapper editorMapper;
 
 	@Override
 	public EditorDTO findById( Long id ){
-		return EditorMapper.INSTANCE.toDTO( editorRepository.getOne( id ) );
+		return editorMapper.toDTO( editorRepository.getOne( id ) );
 	}
 
 
 	@Override
 	public List< EditorDTO > findByName( String name ){
-		return EditorMapper.INSTANCE.toDTOList( editorRepository.findEditorEntitiesByNameContains( name ));
+		return editorMapper.toDTOList( editorRepository.findEditorEntitiesByNameContains( name ));
 	}
 
 
 	@Override
 	public List<EditorDTO> findAll( ){
-		return EditorMapper.INSTANCE.toDTOList( editorRepository.findAll());
+		return editorMapper.toDTOList( editorRepository.findAll());
 	}
 
 
 	@Override
 	public EditorDTO save( EditorDTO bookDTO ){
-		editorRepository.save( EditorMapper.INSTANCE.toEntity( bookDTO/*, new CycleAvoidingMappingContext()*/ ) );
+		editorRepository.save( editorMapper.toEntity( bookDTO/*, new CycleAvoidingMappingContext()*/ ) );
 		return bookDTO;
 	}
 
