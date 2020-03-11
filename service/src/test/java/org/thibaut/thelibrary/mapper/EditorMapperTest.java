@@ -32,7 +32,7 @@ class EditorMapperTest {
 				                                  .bookList( Arrays.asList( bookEntity ) )
 				                                  .build( );
 
-		final EditorDTO editorDTO = EditorMapper.INSTANCE.toDTOnoEditor( editorEntity );
+		final EditorDTO editorDTO = EditorMapper.INSTANCE.toDTO( editorEntity );
 
 		assertNotNull( editorDTO );
 		assertEquals( "Folio", editorDTO.getName() );

@@ -17,7 +17,7 @@ public class EditorServiceImpl implements EditorService {
 
 	@Override
 	public EditorDTO findById( Long id ){
-		return EditorMapper.INSTANCE.toDTOnoEditor( editorRepository.getOne( id ) );
+		return EditorMapper.INSTANCE.toDTO( editorRepository.getOne( id ) );
 	}
 
 

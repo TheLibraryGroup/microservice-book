@@ -1,6 +1,5 @@
 package org.thibaut.thelibrary.dto;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.joda.time.DateTime;
 
@@ -35,7 +34,8 @@ public class BookDTO {
 
 	private List< LibraryDTO > libraryList;
 
-	@JsonManagedReference
+//	@JsonManagedReference
+//	@JsonBackReference
 	private EditorDTO editor;
 
 }

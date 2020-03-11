@@ -1,6 +1,9 @@
 package org.thibaut.thelibrary.mapper;
 
+import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 import org.thibaut.thelibrary.dto.CategoryDTO;
 import org.thibaut.thelibrary.entity.CategoryEntity;
@@ -8,17 +11,32 @@ import org.thibaut.thelibrary.entity.CategoryEntity;
 import java.util.List;
 
 
-@Mapper
+@Mapper(uses = BookMapper.class)
 public interface CategoryMapper {
 
 	CategoryMapper INSTANCE = Mappers.getMapper( CategoryMapper.class );
 
-	CategoryDTO categoryToDTO( CategoryEntity categoryEntity );
 
-	List<CategoryDTO> categoryToDTOList( List< CategoryEntity > categoryEntityList );
+	@Named( "NoCategory" )
+	@Mapping(target = "bookList", qualifiedByName = "NoCategory")
+	CategoryDTO toDTO( CategoryEntity categoryEntity );
 
-	CategoryEntity categoryToEntity( CategoryDTO categoryDTO );
+//	@Named( "NoBook" )
+//	@Mapping(target = "bookList", ignore = true)
+//	CategoryDTO toDTONoBook( CategoryEntity categoryEntity );
 
-	List<CategoryEntity> categoryToEntityList( List< CategoryDTO > categoryDTOList );
+
+	@Named( "NoCategory" )
+	@IterableMapping(qualifiedByName="NoCategory")
+	List<CategoryDTO> toDTOList( List< CategoryEntity > categoryEntityList );
+
+//	@Named( "NoBook" )
+//	@IterableMapping(qualifiedByName="NoBook")
+//	List<CategoryDTO> toDTOListNoBook( List< CategoryEntity > categoryEntityList );
+
+
+	CategoryEntity toEntity( CategoryDTO categoryDTO );
+
+	List<CategoryEntity> toEntityList( List< CategoryDTO > categoryDTOList );
 
 }

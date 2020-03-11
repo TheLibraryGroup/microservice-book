@@ -2,6 +2,8 @@ package org.thibaut.thelibrary.dto;
 
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Builder
@@ -13,4 +15,6 @@ public class CategoryDTO {
 	private Long id;
 
 	private String category;
+
+	private List< BookDTO > bookList;
 }

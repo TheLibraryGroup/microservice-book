@@ -6,4 +6,6 @@ import org.thibaut.thelibrary.entity.CategoryEntity;
 
 @Repository
 public interface CategoryRepository extends JpaRepository< CategoryEntity, Long > {
+
+	CategoryEntity findCategoryEntityByCategoryContains(String category);
 }

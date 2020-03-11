@@ -1,6 +1,5 @@
 package org.thibaut.thelibrary.dto;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import java.util.List;
@@ -21,7 +20,8 @@ public class EditorDTO {
 
 	private CoordinatesDTO coordinates;
 
-	@JsonBackReference
+//	@JsonBackReference
+//	@JsonManagedReference
 	private List< BookDTO > bookList;
 
 }
