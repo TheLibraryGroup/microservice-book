@@ -18,6 +18,7 @@ import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
+
 @DisplayName( "Testing BookService" )
 class BookServiceImplTest {
 

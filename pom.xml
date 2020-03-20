@@ -83,7 +83,6 @@
 				<version>${spring-data-elasticsearch.version}</version>
 			</dependency>
 
-
 			<dependency>
 				<groupId>org.mapstruct</groupId>
 				<artifactId>mapstruct</artifactId>

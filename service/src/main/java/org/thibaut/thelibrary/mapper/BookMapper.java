@@ -50,6 +50,7 @@ public interface BookMapper {
 	@Mapping(target = "categoryList", ignore = true)
 	BookEntity toEntityNoCategory( BookDTO bookDTO );
 
+
 	@Named( "NoBook" )
 	@IterableMapping(qualifiedByName="NoBook")
 	List<BookEntity> toEntityList( List<BookDTO> bookDTOList );
@@ -57,5 +58,4 @@ public interface BookMapper {
 	@Named( "NoCategory" )
 	@IterableMapping(qualifiedByName="NoCategory")
 	List<BookEntity> toEntityListNoCategory( List<BookDTO> bookDTOList );
-
 }
