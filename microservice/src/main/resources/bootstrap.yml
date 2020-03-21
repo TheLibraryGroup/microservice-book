@@ -2,8 +2,8 @@
 spring:
     application:
         name: thelibrary-ms-book
-    profiles:
-        active: local
+#    profiles:
+#        active: local
     cloud:
         config:
             uri: http://localhost:8888
@@ -18,6 +18,12 @@ spring:
         host: localhost
         username: user
         password: user
+    security:
+        oauth2:
+            resourceserver:
+                jwt:
+#                    jwk-set-uri: https://www.auth.thelibrary.mypoc.online/auth/realms/TheLibrary/protocol/openid-connect/certs
+                    jwk-set-uri: https://www.auth.thelibrary.mypoc.online/auth/realms/TheLibrary/.well-known/openid-configuration
 
 eureka:
     client:
@@ -33,36 +39,6 @@ management:
 server:
     port: 8090
 
-keycloak:
-    auth-server-url: https://auth.thelibrary.mypoc.online/auth
-    ssl-required: all
-    bearer-only: true
-    cors: true
-    public-client: true
-    realm: TheLibrary
-    resource: thelibrary-app
-    security-constraints:
-        #    -   authRoles:
-        #        - user
-        #        - admin
-        #        securityCollections:
-        #        -   methods:
-        #            - GET
-        #            patterns:
-        #            - /api/books/*
-        #            - /api/books
-        -   authRoles:
-                - admin
-                - user
-            securityCollections:
-                -   patterns:
-                        - /api/*
-                -   methods:
-                        #                        - GET
-                        - POST
-                        - PUT
-                    patterns:
-                        - /api/books/*
 
 
 logging:

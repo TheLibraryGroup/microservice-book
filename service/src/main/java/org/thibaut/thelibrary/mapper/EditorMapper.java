@@ -17,21 +17,24 @@ public interface EditorMapper {
 	@Mapping(target = "bookList", qualifiedByName = "NoEditor")
 	EditorDTO toDTO( EditorEntity editorEntity );
 
-	@Named( "NoCategory" )
+	@Named( "NoBook" )
 	@Mapping(target = "bookList", ignore = true)
 	EditorDTO toDTONoBook( EditorEntity editorEntity );
 
 
 	@Named( "NoEditor" )
 	@IterableMapping(qualifiedByName="NoEditor")
-	List<EditorDTO> toDTOList( List< EditorEntity > editorEntityList );
+	List< EditorDTO > toDTOList( List< EditorEntity > editorEntityList );
 
-	@Named( "NoCategory" )
-	@IterableMapping(qualifiedByName="NoCategory")
-	List<EditorDTO> toDTOListNoCategory( List< EditorEntity > editorEntityList );
+	@Named( "NoBook" )
+	@IterableMapping(qualifiedByName="NoBook")
+	List< EditorDTO > toDTOListNoBook( List< EditorEntity > editorEntityList );
 
-
+	@Named( "NoBook" )
+	@Mapping(target = "bookList", qualifiedByName = "NoBook")
 	EditorEntity toEntity( EditorDTO editorDTO );
 
-	List<EditorEntity> toEntityList( List< EditorDTO > editorDTOList );
+	@Named( "NoBook" )
+	@IterableMapping(qualifiedByName="NoBook")
+	List< EditorEntity > toEntityList( List< EditorDTO > editorDTOList );
 }

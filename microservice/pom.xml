@@ -48,13 +48,29 @@
 			<artifactId>springdoc-openapi-ui</artifactId>
 		</dependency>
 
-		<!-- The Keycloak Spring Boot adapter takes advantage of Spring Boot’s
-		autoconfiguration so all you need to do is add the Keycloak Spring Boot starter
-		to your project. -->
+<!--		&lt;!&ndash; The Keycloak Spring Boot adapter takes advantage of Spring Boot’s-->
+<!--		autoconfiguration so all you need to do is add the Keycloak Spring Boot starter-->
+<!--		to your project. &ndash;&gt;-->
+<!--		<dependency>-->
+<!--			<groupId>org.keycloak</groupId>-->
+<!--			<artifactId>keycloak-spring-boot-starter</artifactId>-->
+<!--		</dependency>-->
+
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security -->
 		<dependency>
-			<groupId>org.keycloak</groupId>
-			<artifactId>keycloak-spring-boot-starter</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+<!--			<version>2.2.5.RELEASE</version>-->
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-oauth2-resource-server</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-oauth2-jose</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>

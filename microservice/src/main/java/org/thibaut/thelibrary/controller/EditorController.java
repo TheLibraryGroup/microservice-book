@@ -19,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 @RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
-@CrossOrigin("*")
+//@CrossOrigin("*")
 public class EditorController {
 
 	private EditorService editorService;
