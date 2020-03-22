@@ -21,6 +21,7 @@ spring:
 
 keycloak:
     auth-server-url: https://www.auth.thelibrary.mypoc.online/auth
+    cors: true
     realm: TheLibrary
     principal-attribute: preferred_username
     public-client: true
@@ -35,6 +36,7 @@ keycloak:
                     patterns:
                         - /api/books/*
     #            - /api/books
+
 
 eureka:
     client:
