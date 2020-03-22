@@ -2,7 +2,6 @@ package org.thibaut.thelibrary.config;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -15,11 +14,6 @@ import java.io.IOException;
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-//    @Autowired
-//    private JwtUserDetailsService jwtUserDetailsService;
-
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
 
     private static final Log log = LogFactory.getLog(JwtRequestFilter.class);
 
@@ -35,15 +29,16 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
 
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
-        response.setHeader("Access-Control-Max-Age", "3600");
-        response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Range, Content-Disposition, Content-Type, Authorization");
+//        response.setHeader("Access-Control-Allow-Origin", "*");
+//        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+//        response.setHeader("Access-Control-Max-Age", "3600");
+//        response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Range, Content-Disposition, Content-Type, Authorization");
 
         final String requestTokenHeader = request.getHeader("Authorization");
         String username = null;
         String jwtToken = null;
 
+        // check header request
 //        if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
 //            jwtToken = requestTokenHeader.substring(7);
 //            try {
@@ -72,12 +67,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 //                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 //            }
 //        }
-
         if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
             response.setStatus(HttpServletResponse.SC_OK);
-        } /*else {
+        } else {
             chain.doFilter(request, response);
-        }*/
-	    chain.doFilter(request, response);
+        }
     }
 }

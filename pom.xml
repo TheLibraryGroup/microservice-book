@@ -103,18 +103,18 @@
 				<version>${springboot-version}</version>
 			</dependency>
 
-			<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-resource-server -->
-			<dependency>
-				<groupId>org.springframework.security</groupId>
-				<artifactId>spring-security-oauth2-resource-server</artifactId>
-				<version>5.3.0.RELEASE</version>
-			</dependency>
-			<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-jose -->
-			<dependency>
-				<groupId>org.springframework.security</groupId>
-				<artifactId>spring-security-oauth2-jose</artifactId>
-				<version>5.3.0.RELEASE</version>
-			</dependency>
+<!--			&lt;!&ndash; https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-resource-server &ndash;&gt;-->
+<!--			<dependency>-->
+<!--				<groupId>org.springframework.security</groupId>-->
+<!--				<artifactId>spring-security-oauth2-resource-server</artifactId>-->
+<!--				<version>5.3.0.RELEASE</version>-->
+<!--			</dependency>-->
+<!--			&lt;!&ndash; https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-jose &ndash;&gt;-->
+<!--			<dependency>-->
+<!--				<groupId>org.springframework.security</groupId>-->
+<!--				<artifactId>spring-security-oauth2-jose</artifactId>-->
+<!--				<version>5.3.0.RELEASE</version>-->
+<!--			</dependency>-->
 
 
 
@@ -169,9 +169,9 @@
 	<profiles>
 		<profile>
 			<id>local</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
+<!--			<activation>-->
+<!--				<activeByDefault>true</activeByDefault>-->
+<!--			</activation>-->
 			<properties>
 				<spring.profiles.active>local</spring.profiles.active>
 			</properties>

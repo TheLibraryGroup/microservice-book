@@ -22,8 +22,13 @@ spring:
         oauth2:
             resourceserver:
                 jwt:
-#                    jwk-set-uri: https://www.auth.thelibrary.mypoc.online/auth/realms/TheLibrary/protocol/openid-connect/certs
-                    jwk-set-uri: https://www.auth.thelibrary.mypoc.online/auth/realms/TheLibrary/.well-known/openid-configuration
+                    issuer-uri: https://www.auth.thelibrary.mypoc.online/auth/realms/TheLibrary
+#    security:
+#        oauth2:
+#            resourceserver:
+#                jwt:
+##                    jwk-set-uri: https://www.auth.thelibrary.mypoc.online/auth/realms/TheLibrary/protocol/openid-connect/certs
+#                    jwk-set-uri: https://www.auth.thelibrary.mypoc.online/auth/realms/TheLibrary/.well-known/openid-configuration
 
 eureka:
     client:
