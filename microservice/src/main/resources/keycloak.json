@@ -1,0 +1,10 @@
+{
+  "realm": "TheLibrary",
+  "auth-server-url": "https://www.auth.thelibrary.mypoc.online/auth/",
+  "ssl-required": "external",
+  "resource": "thelibrary-app",
+  "public-client": true,
+  "verify-token-audience": true,
+  "use-resource-role-mappings": true,
+  "confidential-port": 0
+}

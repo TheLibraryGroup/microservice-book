@@ -1,0 +1,12 @@
+//{
+//  "realm": "TheLibrary",
+//  "auth-server-url": "https://www.auth.thelibrary.mypoc.online/auth/",
+//  "ssl-required": "external",
+//  "resource": "thelibrary-app",
+//  "verify-token-audience": true,
+//  "credentials": {
+//    "secret": "5902eff4-0127-440d-92d5-f0c0682ff4d7"
+//  },
+//  "confidential-port": 0,
+//  "policy-enforcer": {}
+//}

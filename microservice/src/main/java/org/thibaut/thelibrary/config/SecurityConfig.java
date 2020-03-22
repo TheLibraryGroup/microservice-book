@@ -1,51 +1,50 @@
 package org.thibaut.thelibrary.config;
 
-import lombok.AllArgsConstructor;
-import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
+import org.keycloak.adapters.springsecurity.KeycloakConfiguration;
+import org.keycloak.adapters.springsecurity.config.KeycloakWebSecurityConfigurerAdapter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.jwt.JwtDecoders;
-import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.core.session.SessionRegistryImpl;
+import org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy;
+import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 
 @Configuration
-@EnableWebSecurity
-@AllArgsConstructor
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+@KeycloakConfiguration
+public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter
+{
+    /**
+     * Registers the KeycloakAuthenticationProvider with the authentication manager.
+     */
+    @Autowired
+    public void configureGlobal( AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(keycloakAuthenticationProvider());
+    }
 
-	private final JwtRequestFilter jwtRequestFilter;
+//	@Bean
+//	public ServletListenerRegistrationBean<HttpSessionEventPublisher> httpSessionEventPublisher() {
+//		return new ServletListenerRegistrationBean< HttpSessionEventPublisher >(new HttpSessionEventPublisher());
+//	}
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		// Validate tokens through configured OpenID Provider
-		http.oauth2ResourceServer().jwt().jwtAuthenticationConverter(jwtAuthenticationConverter());
-		http.cors().and().authorizeRequests().mvcMatchers("/api/books").hasRole("admin");
-		// Require authentication for all requests
-//		http.authorizeRequests().anyRequest().authenticated();
-		// Allow showing pages within a frame
-		http.headers().frameOptions().sameOrigin();
-		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-	}
+    /**
+     * Defines the session authentication strategy.
+     */
+    @Bean
+    @Override
+    protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
+        return new RegisterSessionAuthenticationStrategy(new SessionRegistryImpl());
+    }
 
-	private JwtAuthenticationConverter jwtAuthenticationConverter() {
-		JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
-		// Convert realm_access.roles claims to granted authorities, for use in access decisions
-		jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(new KeycloakRealmRoleConverter());
-		return jwtAuthenticationConverter;
-	}
-
-	@Bean
-	public JwtDecoder jwtDecoderByIssuerUri( OAuth2ResourceServerProperties properties) {
-		String issuerUri = properties.getJwt().getIssuerUri();
-		NimbusJwtDecoder jwtDecoder = ( NimbusJwtDecoder ) JwtDecoders.fromIssuerLocation(issuerUri);
-		// Use preferred_username from claims as authentication name, instead of UUID subject
-		jwtDecoder.setClaimSetConverter(new UsernameSubClaimAdapter());
-		return jwtDecoder;
-	}
-
+    @Override
+    protected void configure( HttpSecurity http) throws Exception
+    {
+        super.configure(http);
+        http
+				.cors().and()
+                .authorizeRequests()
+                .antMatchers("/api/books/*").hasRole("user")
+                .anyRequest().permitAll();
+    }
 }
