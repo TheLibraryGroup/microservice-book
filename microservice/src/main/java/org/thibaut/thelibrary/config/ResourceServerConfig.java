@@ -22,7 +22,7 @@ public class ResourceServerConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 //		http.addFilterBefore(corsFilter(), SessionManagementFilter.class);
-        http/*.cors().configurationSource(configurationSource()).and()*/
+        http.cors().and()
                 .authorizeRequests()
                 .mvcMatchers("/api/books").hasAuthority("SCOPE_thelibrary")
                 .and()
