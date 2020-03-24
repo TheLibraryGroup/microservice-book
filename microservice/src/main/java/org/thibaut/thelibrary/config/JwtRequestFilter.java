@@ -35,38 +35,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 //        response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Range, Content-Disposition, Content-Type, Authorization");
 
         final String requestTokenHeader = request.getHeader("Authorization");
-        String username = null;
-        String jwtToken = null;
 
-        // check header request
-//        if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
-//            jwtToken = requestTokenHeader.substring(7);
-//            try {
-//                username = jwtTokenUtil.getUsernameFromToken(jwtToken);
-//            } catch (IllegalArgumentException e) {
-//                log.error("Unable to get JWT Token");
-//            } catch (ExpiredJwtException e) {
-//                log.error("JWT Token has expired");
-//            }
-//        } else {
-//            log.warn("JWT Token does not begin with Bearer String or no token found on header");
-//        }
-//        // if there is a token -> Validation
-//        // take secure bean with user on bdd
-//        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-//             UserDetails userDetails = this.jwtUserDetailsService.loadUserByUsername(username);
-//             // if token is valid configure Spring Security to manually set authentication
-//            if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
-//                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-//                        userDetails, null, userDetails.getAuthorities());
-//                usernamePasswordAuthenticationToken
-//                        .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-//                // After setting the Authentication in the context, I specify
-//                // that the current user is authenticated. So it passes the
-//                // Spring Security Configurations successfully.
-//                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-//            }
-//        }
         if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
             response.setStatus(HttpServletResponse.SC_OK);
         } else {

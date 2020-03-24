@@ -7,5 +7,11 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/thelibrary_book?currentSchema=local</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="Keycloak@localhost" uuid="ba741887-0161-47bb-bc40-234347923c82">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/keycloak?currentSchema=public</jdbc-url>
+    </data-source>
   </component>
 </project>

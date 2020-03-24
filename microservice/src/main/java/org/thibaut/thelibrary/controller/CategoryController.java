@@ -5,6 +5,7 @@ import lombok.NonNull;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.thibaut.thelibrary.dto.CategoryDTO;
@@ -18,7 +19,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 //@CrossOrigin("*")
 public class CategoryController {
 
@@ -27,6 +28,7 @@ public class CategoryController {
 
 
 	@GetMapping("/category/{id}")
+	@PreAuthorize("permitAll()")
 	public CategoryDTO findById( @PathVariable("id") @NonNull Long id){
 		try {
 			CategoryDTO categoryDTO = RestPreconditions.checkFound( categoryService.findById( id ) );
@@ -43,6 +45,7 @@ public class CategoryController {
 
 
 	@GetMapping("/categories")
+	@PreAuthorize("permitAll()")
 	public List<CategoryDTO> findAll(HttpServletResponse response){
 		try {
 			List<CategoryDTO> categoryDTOList = RestPreconditions.checkFound( categoryService.findAll( ) );

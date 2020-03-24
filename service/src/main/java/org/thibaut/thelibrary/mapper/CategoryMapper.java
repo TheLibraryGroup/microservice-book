@@ -25,11 +25,11 @@ public interface CategoryMapper {
 
 	@Named( "NoCategory" )
 	@IterableMapping(qualifiedByName="NoCategory")
-	List< CategoryDTO > toDTOList( List< CategoryEntity > categoryEntityList );
+	List<CategoryDTO> toDTOList( List< CategoryEntity > categoryEntityList );
 
 	@Named( "NoBook" )
 	@IterableMapping(qualifiedByName="NoBook")
-	List< CategoryDTO > toDTOListNoBook( List< CategoryEntity > categoryEntityList );
+	List<CategoryDTO> toDTOListNoBook( List< CategoryEntity > categoryEntityList );
 
 
 	@Named( "NoCategory" )
@@ -41,10 +41,12 @@ public interface CategoryMapper {
 	CategoryEntity toEntityNoBook( CategoryDTO categoryDTO );
 
 
-	List< CategoryEntity > toEntityList( List< CategoryDTO > categoryDTOList );
+	@Named( "NoCategory" )
+	@IterableMapping(qualifiedByName="NoCategory")
+	List<CategoryEntity> toEntityList( List< CategoryDTO > categoryDTOList );
 
 	@Named( "NoBook" )
 	@IterableMapping(qualifiedByName="NoBook")
-	List< CategoryEntity > toEntityListNoBook( List< CategoryDTO > categoryDTOList );
+	List<CategoryEntity> toEntityListNoBook( List< CategoryDTO > categoryDTOList );
 
 }

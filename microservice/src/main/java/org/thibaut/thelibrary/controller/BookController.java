@@ -5,6 +5,7 @@ import lombok.NonNull;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.thibaut.thelibrary.dto.BookDTO;
@@ -18,8 +19,8 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
-@CrossOrigin(origins = "*")
+@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+//@CrossOrigin(origins = "*")
 public class BookController {
 
 	private BookService bookService;
@@ -27,6 +28,7 @@ public class BookController {
 
 
 	@GetMapping("/book/{id}")
+	@PreAuthorize("permitAll()")
 	public BookDTO findById( @PathVariable("id") @NonNull Long id){
 		try {
 			BookDTO bookDTO = RestPreconditions.checkFound( bookService.findById( id ) );
@@ -43,6 +45,7 @@ public class BookController {
 
 
 	@GetMapping("/books")
+	@PreAuthorize("hasAnyRole('admin', 'user')")
 	public List<BookDTO> findAll(HttpServletResponse response){
 		try {
 			List<BookDTO> bookDTOList = RestPreconditions.checkFound( bookService.findAll( ) );
