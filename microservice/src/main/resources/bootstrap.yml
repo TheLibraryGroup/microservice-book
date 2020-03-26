@@ -18,25 +18,19 @@ spring:
         host: localhost
         username: user
         password: user
-#    security:
-#        oauth2:
-#            resourceserver:
-#                jwt:
-##                    issuer-uri: https://www.auth.thelibrary.mypoc.online/auth/realms/TheLibrary
-#                    issuer-uri: http://localhost:8080/auth/realms/TheLibrary
 ##                    TO GET KEYCLOAK ENDPOINTS : http://localhost:8080/auth/realms/TheLibrary/.well-known/openid-configuration
     security:
         oauth2:
             resourceserver:
                 jwt:
                     issuer-uri: http://localhost:8080/auth/realms/TheLibrary
-                    jwk-set-uri: http://localhost:8080/auth/realms/TheLibrary/.well-known/openid-configuration
-                    #                    jwk-set-uri: https://www.auth.thelibrary.mypoc.online/auth/realms/TheLibrary/protocol/openid-connect/certs
+#                    jwk-set-uri: http://localhost:8080/auth/realms/TheLibrary/.well-known/openid-configuration
+#                    jwk-set-uri: https://www.auth.thelibrary.mypoc.online/auth/realms/TheLibrary/protocol/openid-connect/certs
 
 eureka:
     client:
         serviceUrl:
-            defaultZone: http://localhost:8761/eureka/
+            defaultZone: http://theusername:password@localhost:8761/eureka/
 
 management:
     endpoints:
