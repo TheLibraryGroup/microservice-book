@@ -8,6 +8,8 @@ spring:
         config:
             uri: http://localhost:8888
             profile: local, prod
+            username: confUser
+            password: confPassword
         discovery:
             enabled: true
     data:
@@ -30,7 +32,7 @@ spring:
 eureka:
     client:
         serviceUrl:
-            defaultZone: http://theusername:password@localhost:8761/eureka/
+            defaultZone: http://discUser:discPassword@localhost:8761/eureka/
 
 management:
     endpoints:
