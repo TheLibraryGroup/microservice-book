@@ -28,7 +28,7 @@ public class BookController {
 
 
 	@GetMapping("/book/{id}")
-	@PreAuthorize("permitAll()")
+	@PreAuthorize("hasAnyRole('admin', 'user')")
 	public BookDTO findById( @PathVariable("id") @NonNull Long id){
 		try {
 			BookDTO bookDTO = RestPreconditions.checkFound( bookService.findById( id ) );
