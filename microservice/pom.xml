@@ -53,10 +53,17 @@
 			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-hystrix-dashboard -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-hystrix-dashboard</artifactId>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>
-<!--		<finalName>thelibrary-microservice</finalName>-->
+		<finalName>microservice-book-${microservice.version}</finalName>
 		<plugins>
 
 			<plugin>
@@ -64,6 +71,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<mainClass>${start-class}</mainClass>
+					<outputDirectory>../../docker/back</outputDirectory>
 				</configuration>
 			</plugin>
 

@@ -1,21 +1,26 @@
 
+server:
+    port: ${SERVER-PORT}
+    servlet:
+        context-path: /api/
+
 spring:
     application:
         name: thelibrary-ms-book
-#    profiles:
-#        active: local
+    profiles:
+        active: docker
     cloud:
         config:
-            uri: http://localhost:8888
-            profile: local, prod
-            username: confUser
-            password: confPassword
+            profile: dev
+            uri: ${SPRING-CLOUD-CONFIG-URI}
+            username: ${SPRING-CLOUD-CONFIG-USERNAME}
+            password: ${SPRING-CLOUD-CONFIG-PWD}
         discovery:
             enabled: true
-    data:
-        rest:
-            return-body-on-create: true
-            return-body-on-update: true
+#    data:
+#        rest:
+#            return-body-on-create: true
+#            return-body-on-update: true
     rabbitmq:
         host: localhost
         username: user
@@ -25,25 +30,21 @@ spring:
         oauth2:
             resourceserver:
                 jwt:
-                    issuer-uri: http://localhost:8080/auth/realms/TheLibrary
+                    issuer-uri: https://www.auth.thelibrary.mypoc.online/auth/realms/TheLibrary
 #                    jwk-set-uri: http://localhost:8080/auth/realms/TheLibrary/.well-known/openid-configuration
 #                    jwk-set-uri: https://www.auth.thelibrary.mypoc.online/auth/realms/TheLibrary/protocol/openid-connect/certs
 
 eureka:
     client:
         serviceUrl:
-            defaultZone: http://discUser:discPassword@localhost:8761/eureka/
+            defaultZone: ${EUREKA-CLIENT-SERVICEURL-DEFAULTZONE}
+
 
 management:
     endpoints:
         web:
             exposure:
                 include: "*"
-
-server:
-    port: 8090
-    servlet:
-        context-path: /api/
 
 logging:
     level:

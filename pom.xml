@@ -32,7 +32,7 @@
 		<service.version>0.0.1-SNAPSHOT</service.version>
 		<microservice.version>0.0.1-SNAPSHOT</microservice.version>
 
-		<start-class>org.thibaut.thelibrary.CatalogApplication</start-class>
+		<start-class>org.thibaut.thelibrary.BookApplication</start-class>
 		<java-version>11</java-version>
 
 		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
@@ -51,6 +51,7 @@
 		<json.version>20190722</json.version>
 		<jackson-databind.version>2.10.2</jackson-databind.version>
 		<spring-data-elasticsearch.version>3.2.5.RELEASE</spring-data-elasticsearch.version>
+		<spring-cloud-starter-hystrix-dashboard.version>1.4.7.RELEASE</spring-cloud-starter-hystrix-dashboard.version>
 	</properties>
 
 	<dependencyManagement>
@@ -111,6 +112,13 @@
 				<scope>import</scope>
 			</dependency>
 
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-starter-hystrix-dashboard</artifactId>
+				<version>${spring-cloud-starter-hystrix-dashboard.version}</version>
+			</dependency>
+
+
 
 			<!-- exclude junit 4 -->
 			<dependency>
@@ -145,18 +153,12 @@
 
 	<profiles>
 		<profile>
-			<id>local</id>
-<!--			<activation>-->
-<!--				<activeByDefault>true</activeByDefault>-->
-<!--			</activation>-->
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 			<properties>
-				<spring.profiles.active>local</spring.profiles.active>
-			</properties>
-		</profile>
-		<profile>
-			<id>prod</id>
-			<properties>
-				<spring.profiles.active>prod</spring.profiles.active>
+				<spring.profiles.active>dev</spring.profiles.active>
 			</properties>
 		</profile>
 	</profiles>

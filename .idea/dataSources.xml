@@ -13,5 +13,11 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/keycloak?currentSchema=public</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="postgres@vps" uuid="52c6650f-0d47-4733-899b-083bd34f96dc">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://db.mypoc.online:5433/thelibrary_book?currentSchema=dev</jdbc-url>
+    </data-source>
   </component>
 </project>
