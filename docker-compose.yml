@@ -1,61 +1,104 @@
-
 version: '3.7'
 
 services:
-    db-thelibrary:
-        build:
-            context: ./db
-            dockerfile: Dockerfile-db
-        container_name: cont-db-thelibrary
-        restart: unless-stopped
-        ports:
-            - 5432:5432
-        environment:
-            POSTGRES_DB: db_thelibrary
-            POSTGRES_USER: admin_thelibrary
-            POSTGRES_PASSWORD: 123
-        volumes:
-            - db_data:/var/lib/postgres/data
-        networks:
-            - network-thelibrary
 
-    back-thelibrary:
-        depends_on:
-            - db-thelibrary
+    thelibrary-service-configuration:
         build:
-            context: ./build/back
-            dockerfile: Dockerfile
-        container_name: cont-back-thelibrary
-        ports:
-            - '127.0.0.1:8090:8090'
+            context: .
+            dockerfile: ../configuration-service/Dockerfile-configuration
+        container_name: cont-thelibrary-configuration
         environment:
-            SPRING_PROFILES_ACTIVE: dev
-            SPRING_DATASOURCE_USERNAME: admin_thelibrary
-            SPRING_DATASOURCE_PASSWORD: 123
-            SPRING_DATASOURCE_URL: jdbc:postgresql://db-thelibrary:5432/thelibrary_book?currentSchema=dev
+            SERVER-PORT: 8080
+            EUREKA-CLIENT-SERVICEURL-DEFAULTZONE: http://discUser:discPassword@thelibrary-service-discovery:8761/eureka/
+        ports:
+            - 8888:8080
+        expose:
+          - 8888
         networks:
-            - network-thelibrary
+            - tl-network
+#        network_mode: host
 
-    front-thelibrary:
+    thelibrary-service-discovery:
+        build:
+            context: .
+            dockerfile: ../discovery-service/Dockerfile-discovery
+        container_name: cont-thelibrary-discovery
+        environment:
+            SERVER-PORT: 8761
+            SPRING-CLOUD-CONFIG-URI: http://thelibrary-service-configuration:8080
+            SPRING-CLOUD-CONFIG-USERNAME: confUser
+            SPRING-CLOUD-CONFIG-PWD: confPassword
+        command: ["/wait-for-it.sh", "thelibrary-service-configuration:8080", "--", "java", "-jar", "discovery-service-0.0.1-SNAPSHOT.jar"]
+#        ports:
+#            - 8761:8080
+#        expose:
+#          - 8761
+        networks:
+            - tl-network
+
+    thelibrary-service-gateway:
+        build:
+            context: .
+            dockerfile: ../gateway-service/Dockerfile-gateway
+        container_name: cont-thelibrary-gateway
+        environment:
+            SERVER-PORT: 8082
+            SPRING-CLOUD-CONFIG-URI: http://thelibrary-service-configuration:8080
+            SPRING-CLOUD-CONFIG-USERNAME: confUser
+            SPRING-CLOUD-CONFIG-PWD: confPassword
+            EUREKA-CLIENT-SERVICEURL-DEFAULTZONE: http://discUser:discPassword@thelibrary-service-discovery:8761/eureka/
+        command: ["/wait-for-it.sh", "thelibrary-service-configuration:8080", "--", "java", "-jar", "gateway-service-0.0.1-SNAPSHOT.jar"]
+        ports:
+            - 8082:8082
+        networks:
+            - tl-network
+
+    thelibrary-service-book:
+        build:
+            context: .
+            dockerfile: ../microservice-book/Dockerfile-ms-book
+        container_name: cont-service-book
+
+        command: ["/wait-for-it.sh", "thelibrary-service-configuration:8080", "--", "java", "-Dspring.profiles.active=dev", "-jar", "microservice-book-0.0.1-SNAPSHOT.jar"]
+        environment:
+            SERVER-PORT: 8090
+            SPRING-CLOUD-CONFIG-URI: http://thelibrary-service-configuration:8080
+            SPRING-CLOUD-CONFIG-USERNAME: confUser
+            SPRING-CLOUD-CONFIG-PWD: confPassword
+            EUREKA-CLIENT-SERVICEURL-DEFAULTZONE: http://discUser:discPassword@thelibrary-service-discovery:8761/eureka/
+        networks:
+            - tl-network
+
+    ct-front:
         build:
             context: .
             dockerfile: build/front/Dockerfile-front
-        container_name: cont-front-thelibrary
+        container_name: cont-ct-front
         volumes:
-            - 'front:/app/node_modules'
+            - front:/app
+            - /app/node_modules
         ports:
-            - '127.0.0.1:4200:4200'
+            - 4200:4200
         networks:
-            - network-thelibrary
+            - ct-network
 
 networks:
-    network-thelibrary:
+    tl-network:
+#        internal: true
         driver: bridge
-        #        ipam:
-        #            config:
-        #                - subnet: 172.5.0.0/16
 
 volumes:
+    thelibrary-postgres:
+        driver: local
+        driver_opts:
+            type: 'none'
+            o: 'bind'
+            device: '/opt/ct/docker/volumes/thelibrary-postgres'
+    thelibrary-pgadmin:
+        driver: local
+        driver_opts:
+            type: 'none'
+            o: 'bind'
+            device: '/opt/ct/docker/volumes/thelibrary-pgadmin'
     front:
-    db_data:
 
