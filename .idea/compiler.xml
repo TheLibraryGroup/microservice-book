@@ -30,10 +30,10 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="entity" target="11" />
-      <module name="microservice" target="11" />
-      <module name="repository" target="11" />
-      <module name="service" target="11" />
+      <module name="entity" target="1.8" />
+      <module name="microservice" target="1.8" />
+      <module name="repository" target="1.8" />
+      <module name="service" target="1.8" />
       <module name="thelibrary-ms-book" target="1.8" />
     </bytecodeTargetLevel>
   </component>

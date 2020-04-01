@@ -36,7 +36,7 @@
 		<java-version>11</java-version>
 
 		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-		<maven-compiler-plugin.source-target.version>11</maven-compiler-plugin.source-target.version>
+		<maven-compiler-plugin.source-target.version>1.8</maven-compiler-plugin.source-target.version>
 		<maven-shade-plugin.version>3.2.1</maven-shade-plugin.version>
 
 		<springboot-version>2.2.5.RELEASE</springboot-version>
@@ -168,7 +168,7 @@
 			<plugins>
 				<plugin>
 					<artifactId>maven-assembly-plugin</artifactId>
-					<!--				<version>3.2.0</version>-->
+					<version>3.2.0</version>
 					<configuration>
 						<archive>
 							<manifest>
