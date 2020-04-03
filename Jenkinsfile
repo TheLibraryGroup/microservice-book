@@ -1,5 +1,56 @@
 node {
 
+    stage('Git clone docker-compose') {
+             git 'https://github.com/TheLibraryGroup/docker.git'
+        }
+
+        stage('SSH publisher docker-compose'){
+            sshPublisher(
+                publishers: [
+                    sshPublisherDesc(
+                        configName: 'vps778813.ovh.net',
+                        transfers: [
+                            sshTransfer(
+                                cleanRemote: false,
+                                excludes: '',
+                                execCommand: '',
+                                execTimeout: 120000,
+                                flatten: false,
+                                makeEmptyDirs: false,
+                                noDefaultExcludes: false,
+                                patternSeparator: '[, ]+',
+                                remoteDirectory: '/docker/thelibrary-group/',
+                                remoteDirectorySDF: false,
+                                removePrefix: '',
+                                sourceFiles: 'docker-compose.yml'
+                            ),
+                            sshTransfer(
+                                cleanRemote: false,
+                                excludes: '',
+                                execCommand: '',
+                                execTimeout: 120000,
+                                flatten: false,
+                                makeEmptyDirs: false,
+                                noDefaultExcludes: false,
+                                patternSeparator: '[, ]+',
+                                remoteDirectory: '/docker/thelibrary-group/build',
+                                remoteDirectorySDF: false,
+                                removePrefix: '',
+                                sourceFiles: 'wait-for-it.sh'
+                            ),
+                        ],
+                        usePromotionTimestamp: false,
+                        useWorkspaceInPromotion: false,
+                        verbose: false
+                    )
+                ]
+            )
+        }
+
+        stage('Clean workspace'){
+            cleanWs()
+        }
+
     stage('Git clone configuration-service') {
           git 'https://github.com/TheLibraryGroup/configuration-service.git'
         }
@@ -384,55 +435,6 @@ node {
             )
         }
 
-    stage('Git clone docker-compose') {
-             git 'https://github.com/TheLibraryGroup/docker.git'
-        }
 
-        stage('SSH publisher docker-compose'){
-            sshPublisher(
-                publishers: [
-                    sshPublisherDesc(
-                        configName: 'vps778813.ovh.net',
-                        transfers: [
-                            sshTransfer(
-                                cleanRemote: false,
-                                excludes: '',
-                                execCommand: '',
-                                execTimeout: 120000,
-                                flatten: false,
-                                makeEmptyDirs: false,
-                                noDefaultExcludes: false,
-                                patternSeparator: '[, ]+',
-                                remoteDirectory: '/docker/thelibrary-group/',
-                                remoteDirectorySDF: false,
-                                removePrefix: '',
-                                sourceFiles: 'docker-compose.yml'
-                            ),
-                            sshTransfer(
-                                cleanRemote: false,
-                                excludes: '',
-                                execCommand: '',
-                                execTimeout: 120000,
-                                flatten: false,
-                                makeEmptyDirs: false,
-                                noDefaultExcludes: false,
-                                patternSeparator: '[, ]+',
-                                remoteDirectory: '/docker/thelibrary-group/sh',
-                                remoteDirectorySDF: false,
-                                removePrefix: '',
-                                sourceFiles: 'sh/wait-for-it.sh'
-                            ),
-                        ],
-                        usePromotionTimestamp: false,
-                        useWorkspaceInPromotion: false,
-                        verbose: false
-                    )
-                ]
-            )
-        }
-
-        stage('Clean workspace'){
-            cleanWs()
-        }
 
 }
