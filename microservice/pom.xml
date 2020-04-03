@@ -71,6 +71,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<mainClass>${start-class}</mainClass>
+					<outputDirectory>../</outputDirectory>
 				</configuration>
 			</plugin>
 
