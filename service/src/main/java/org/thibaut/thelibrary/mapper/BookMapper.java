@@ -13,7 +13,9 @@ public interface BookMapper {
 	@Named( "NoBook" )
 	@Mappings( {
 			@Mapping(target = "categoryList", qualifiedByName = "NoBook"),
-			@Mapping( target = "editor.bookList", ignore = true)
+			@Mapping( target = "editor.bookList", ignore = true),
+			@Mapping(target="publicationDate", source = "publicationDate",
+					dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS")
 	} )
 	BookDTO toDTO( BookEntity bookEntity );
 
@@ -48,7 +50,9 @@ public interface BookMapper {
 	@Named( "NoBook" )
 	@Mappings( {
 			@Mapping(target = "categoryList", qualifiedByName = "NoBook"),
-			@Mapping( target = "editor.bookList", ignore = true)
+			@Mapping( target = "editor.bookList", ignore = true),
+			@Mapping(target="publicationDate", source = "publicationDate",
+					dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS")
 	} )
 	BookEntity toEntity( BookDTO bookDTO );
 
@@ -64,4 +68,5 @@ public interface BookMapper {
 	@Named( "NoCategory" )
 	@IterableMapping(qualifiedByName="NoCategory")
 	List<BookEntity> toEntityListNoCategory( List<BookDTO> bookDTOList );
+
 }

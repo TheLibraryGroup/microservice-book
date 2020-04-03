@@ -19,7 +19,7 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public BookDTO findById( Long id ){
-		return bookMapper.toDTO( bookRepository.getOne( id )/*, new CycleAvoidingMappingContext()*/);
+		return bookMapper.toDTO( bookRepository.getOne( id ));
 	}
 
 
@@ -31,13 +31,13 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public List<BookDTO> findAll( ){
-		return bookMapper.toDTOList( bookRepository.findAll()/*, new CycleAvoidingMappingContext()*/);
+		return bookMapper.toDTOList( bookRepository.findAll());
 	}
 
 
 	@Override
 	public BookDTO save( BookDTO bookDTO ){
-		bookRepository.save( bookMapper.toEntity( bookDTO/*, new CycleAvoidingMappingContext()*/ ) );
+		bookRepository.save( bookMapper.toEntity( bookDTO ) );
 		return bookDTO;
 	}
 

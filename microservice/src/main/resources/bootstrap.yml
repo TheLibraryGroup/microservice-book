@@ -1,8 +1,9 @@
 
 server:
-    port: ${SERVER-PORT}
+    port: ${SERVER_PORT}
     servlet:
         context-path: /api/
+
 
 spring:
     application:
@@ -12,12 +13,12 @@ spring:
     cloud:
         config:
             profile: dev
-            uri: ${SPRING-CLOUD-CONFIG-URI}
-            username: ${SPRING-CLOUD-CONFIG-USERNAME}
-            password: ${SPRING-CLOUD-CONFIG-PWD}
+            uri: ${SPRING_CLOUD_CONFIG_URI}
+            username: ${SPRING_CLOUD_CONFIG_USERNAME}
+            password: ${SPRING_CLOUD_CONFIG_PWD}
         discovery:
             enabled: true
-#    data:
+    #    data:
 #        rest:
 #            return-body-on-create: true
 #            return-body-on-update: true
@@ -34,17 +35,28 @@ spring:
 #                    jwk-set-uri: http://localhost:8080/auth/realms/TheLibrary/.well-known/openid-configuration
 #                    jwk-set-uri: https://www.auth.thelibrary.mypoc.online/auth/realms/TheLibrary/protocol/openid-connect/certs
 
+
 eureka:
+    instance:
+        leaseRenewalIntervalInSeconds: 10
+        health-check-url-path: /actuator/health
+        metadata-map:
+            startup: ${random.int}    #needed to trigger info and endpoint update after restart
     client:
+        registryFetchIntervalSeconds: 5
         serviceUrl:
-            defaultZone: ${EUREKA-CLIENT-SERVICEURL-DEFAULTZONE}
+            defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE}
 
 
 management:
+    endpoint:
+        health:
+            show-details: always
     endpoints:
         web:
             exposure:
                 include: "*"
+
 
 logging:
     level:

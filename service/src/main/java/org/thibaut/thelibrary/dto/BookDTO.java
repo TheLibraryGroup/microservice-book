@@ -1,7 +1,6 @@
 package org.thibaut.thelibrary.dto;
 
 import lombok.*;
-import org.joda.time.DateTime;
 
 import java.util.List;
 
@@ -27,7 +26,8 @@ public class BookDTO {
 
 	private Long isbn;
 
-	private DateTime publicationDate;
+//	private DateTime publicationDate;
+	private String publicationDate;
 
 	private Integer numberOfPages;
 

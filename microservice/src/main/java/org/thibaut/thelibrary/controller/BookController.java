@@ -59,6 +59,7 @@ public class BookController {
 
 
 	@PostMapping("/book")
+	@PreAuthorize("hasAnyRole('admin', 'user')")
 	public BookDTO save( @RequestBody BookDTO bookDTO, HttpServletResponse response ){
 		try {
 			RestPreconditions.checkFound( bookDTO );
