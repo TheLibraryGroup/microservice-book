@@ -21,9 +21,9 @@
 	</parent>
 
 	<groupId>org.thibaut.thelibrary</groupId>
-	<artifactId>thelibrary-ms-book</artifactId>
+	<artifactId>book-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>thelibrary-ms-book</name>
+	<name>book-service</name>
 	<description>A microservice to consult the library's catalog</description>
 
 	<properties>
@@ -32,7 +32,7 @@
 		<service.version>0.0.1-SNAPSHOT</service.version>
 		<microservice.version>0.0.1-SNAPSHOT</microservice.version>
 
-		<start-class>org.thibaut.thelibrary.BookApplication</start-class>
+		<start-class>org.thibaut.thelibrary.BookServiceApplication</start-class>
 		<java-version>11</java-version>
 
 		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>

@@ -7,7 +7,7 @@ server:
 
 spring:
     application:
-        name: thelibrary-ms-book
+        name: book-service
     profiles:
         active: docker
     cloud:
