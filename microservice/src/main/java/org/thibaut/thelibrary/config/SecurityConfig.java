@@ -24,8 +24,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// Validate tokens through configured OpenID Provider
+//		http.cors().and().authorizeRequests(  ).anyRequest().permitAll();
 		http.cors().and().oauth2ResourceServer().jwt().jwtAuthenticationConverter(jwtAuthenticationConverter());
-		http.authorizeRequests().antMatchers(HttpMethod.GET, "/actuator/**").permitAll().and();
+		http.authorizeRequests().antMatchers(HttpMethod.GET, "/actuator/**").permitAll();
+		http.authorizeRequests().antMatchers(HttpMethod.POST, "/actuator/**").permitAll();
+		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/actuator/**").permitAll();
 //		http.cors().and().authorizeRequests().mvcMatchers("/books").hasRole("admin");
 		// Require authentication for all requests
 //		http.authorizeRequests().anyRequest().authenticated();

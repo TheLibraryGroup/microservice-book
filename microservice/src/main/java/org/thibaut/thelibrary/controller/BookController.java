@@ -28,7 +28,8 @@ public class BookController {
 
 
 	@GetMapping("/book/{id}")
-	@PreAuthorize("hasAnyRole('admin', 'user')")
+	@PreAuthorize("permitAll()")
+
 	public BookDTO findById( @PathVariable("id") @NonNull Long id){
 		try {
 			BookDTO bookDTO = RestPreconditions.checkFound( bookService.findById( id ) );
@@ -42,6 +43,8 @@ public class BookController {
 			throw new ResponseStatusException( HttpStatus.NOT_FOUND, "Book not found", ex );
 		}
 	}
+
+
 
 
 	@GetMapping("/books")

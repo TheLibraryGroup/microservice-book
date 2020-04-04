@@ -32,13 +32,13 @@ spring:
             resourceserver:
                 jwt:
                     issuer-uri: https://www.auth.thelibrary.mypoc.online/auth/realms/TheLibrary
-#                    jwk-set-uri: http://localhost:8080/auth/realms/TheLibrary/.well-known/openid-configuration
 #                    jwk-set-uri: https://www.auth.thelibrary.mypoc.online/auth/realms/TheLibrary/protocol/openid-connect/certs
 
 
 eureka:
     instance:
         leaseRenewalIntervalInSeconds: 10
+        leaseExpirationDurationInSeconds: 2
         health-check-url-path: /actuator/health
         metadata-map:
             startup: ${random.int}    #needed to trigger info and endpoint update after restart
@@ -46,16 +46,25 @@ eureka:
         registryFetchIntervalSeconds: 5
         serviceUrl:
             defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE}
+        healthcheck:
+            enabled: true
 
+hystrix:
+    metrics:
+        polling-interval-ms: 3000
+        enabled: true
 
 management:
     endpoint:
         health:
             show-details: always
+        hystrix:
+            stream:
+                enabled: true
     endpoints:
         web:
             exposure:
-                include: "*"
+                include: hystrix.stream, health, info
 
 
 logging:
