@@ -129,3 +129,14 @@ buildNumber.properties
 .flattened-pom.xml
 
 # End of https://www.gitignore.io/api/java,maven,intellij
+Supprimerait .idea/codeStyles/
+Supprimerait .idea/compiler.xml
+Supprimerait .idea/encodings.xml
+Supprimerait .idea/microservice-book.iml
+Supprimerait .idea/misc.xml
+Supprimerait .idea/modules.xml
+Supprimerait .idea/vcs.xml
+Supprimerait entity/entity.iml
+Supprimerait microservice/microservice.iml
+Supprimerait repository/repository.iml
+Supprimerait service/service.iml
