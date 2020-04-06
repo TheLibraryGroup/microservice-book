@@ -1,7 +1,11 @@
 package org.thibaut.thelibrary.controller;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,20 +24,24 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-//@CrossOrigin(origins = "*")
 public class BookController {
 
 	private BookService bookService;
 	private ApplicationEventPublisher eventPublisher;
+	private static final Logger LOGGER = LoggerFactory.getLogger( BookController.class);
 
 
 	@GetMapping("/book/{id}")
 	@PreAuthorize("permitAll()")
-
-	public BookDTO findById( @PathVariable("id") @NonNull Long id){
+	@HystrixCommand(fallbackMethod = "defaultBook",
+			commandProperties = {
+					@HystrixProperty(name="execution.isolation.strategy", value="SEMAPHORE")
+			})
+	public BookDTO findById( @PathVariable("id") @NonNull Long id, HttpServletResponse response){
+		LOGGER.info( "CLASS < BookController > - Method < findById > - param < " + id + " >"  );
 		try {
 			BookDTO bookDTO = RestPreconditions.checkFound( bookService.findById( id ) );
-//			eventPublisher.publishEvent( new SingleResourceRetrievedEvent(this, response) );
+			eventPublisher.publishEvent( new SingleResourceRetrievedEvent(this, response) );
 			return bookDTO;
 		}
 		catch ( NullPointerException ex ){
@@ -44,7 +52,9 @@ public class BookController {
 		}
 	}
 
-
+	public BookDTO defaultBook(@PathVariable("id") @NonNull Long id, HttpServletResponse response){
+		return BookDTO.builder().title( "DEFAULTBOOK" ).build();
+	}
 
 
 	@GetMapping("/books")
@@ -62,7 +72,7 @@ public class BookController {
 
 
 	@PostMapping("/book")
-	@PreAuthorize("hasAnyRole('admin', 'user')")
+	@PreAuthorize("hasAnyRole('admin')")
 	public BookDTO save( @RequestBody BookDTO bookDTO, HttpServletResponse response ){
 		try {
 			RestPreconditions.checkFound( bookDTO );
@@ -77,6 +87,7 @@ public class BookController {
 
 
 	@DeleteMapping("/book")
+	@PreAuthorize("hasAnyRole('admin')")
 	public void delete( @PathVariable("id") Long id, HttpServletResponse response ){
 		try {
 			RestPreconditions.checkNull(  id );
@@ -93,6 +104,7 @@ public class BookController {
 
 
 	@DeleteMapping("/books")
+	@PreAuthorize("hasAnyRole('admin')")
 	public void deleteList( @RequestBody() List<Long> idList, HttpServletResponse response ){
 		try {
 			RestPreconditions.checkFound( idList );

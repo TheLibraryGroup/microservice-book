@@ -18,25 +18,25 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public CategoryDTO findById( Long id ){
-		return categoryMapper.toDTO( categoryRepository.getOne( id )/*, new CycleAvoidingMappingContext()*/ );
+		return categoryMapper.toDTO( categoryRepository.getOne( id ) );
 	}
 
 
 	@Override
 	public CategoryDTO findByName( String name ){
-		return categoryMapper.toDTO( categoryRepository.findCategoryEntityByCategoryContains( name )/*, new CycleAvoidingMappingContext()*/);
+		return categoryMapper.toDTO( categoryRepository.findCategoryEntityByCategoryContains( name ));
 	}
 
 
 	@Override
 	public List<CategoryDTO> findAll( ){
-		return categoryMapper.toDTOList( categoryRepository.findAll()/*, new CycleAvoidingMappingContext()*/);
+		return categoryMapper.toDTOList( categoryRepository.findAll());
 	}
 
 
 	@Override
 	public CategoryDTO save( CategoryDTO categoryDTO ){
-		categoryRepository.save( categoryMapper.toEntity( categoryDTO/*, new CycleAvoidingMappingContext()*/ ) );
+		categoryRepository.save( categoryMapper.toEntity( categoryDTO ) );
 		return categoryDTO;
 	}
 

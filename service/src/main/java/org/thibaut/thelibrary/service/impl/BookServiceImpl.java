@@ -1,11 +1,9 @@
 package org.thibaut.thelibrary.service.impl;
 
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import lombok.AllArgsConstructor;
-import lombok.NonNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.thibaut.thelibrary.dto.BookDTO;
 import org.thibaut.thelibrary.entity.BookEntity;
 import org.thibaut.thelibrary.mapper.BookMapper;
@@ -20,19 +18,14 @@ public class BookServiceImpl implements BookService {
 
 	private BookRepository bookRepository;
 	private BookMapper bookMapper;
+	private static final Logger LOGGER = LoggerFactory.getLogger(BookServiceImpl.class);
 
 	@Override
-	@HystrixCommand(fallbackMethod = "defaultBook",
-			commandProperties = {
-					@HystrixProperty(name="execution.isolation.strategy", value="SEMAPHORE")
-			})
 	public BookDTO findById( Long id ){
+		LOGGER.info( "CLASS < BookServiceImpl > - Method < findById > - param < " + id + " >"  );
 		return bookMapper.toDTO( bookRepository.getOne( id ));
 	}
 
-	public BookDTO defaultBook(@PathVariable("id") @NonNull Long id){
-		return BookDTO.builder().title( "DEFAULTBOOK" ).build();
-	}
 
 	@Override
 	public List< BookEntity > getBookByTitle( String title ){

@@ -11,11 +11,11 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 @SpringBootApplication
 @EnableHystrix
 @EnableCircuitBreaker
-public class BookServiceApplication {
+public class BookApplication {
 
 	public static void main(String[] args) {
 
-		SpringApplication.run( BookServiceApplication.class, args );
+		SpringApplication.run( BookApplication.class, args );
 
 	}
 
