@@ -73,3 +73,6 @@ logging:
                     descriptor:
                         sql:
                             BasicBinder: TRACE
+    file:
+        path: .
+        name: ${spring.application.name}.log
