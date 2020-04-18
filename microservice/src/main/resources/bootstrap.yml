@@ -4,7 +4,6 @@ server:
     servlet:
         context-path: /api/
 
-
 spring:
     application:
         name: book
@@ -31,7 +30,6 @@ spring:
     zipkin:
         base-url: ${SPRING_ZIPKIN_URL}
 #                    jwk-set-uri: https://www.auth.thelibrary.mypoc.online/auth/realms/TheLibrary/protocol/openid-connect/certs
-
 
 eureka:
     instance:
@@ -62,7 +60,8 @@ management:
     endpoints:
         web:
             exposure:
-                include: hystrix.stream, health, info
+#                include: hystrix.stream, health, info, *
+                include: "*"
 
 logging:
     level:
