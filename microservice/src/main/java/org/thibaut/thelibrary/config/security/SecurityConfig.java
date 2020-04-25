@@ -1,4 +1,4 @@
-package org.thibaut.thelibrary.config;
+package org.thibaut.thelibrary.config.security;
 
 import lombok.AllArgsConstructor;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
@@ -24,15 +24,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// Validate tokens through configured OpenID Provider
-		http.cors().and().oauth2ResourceServer().jwt().jwtAuthenticationConverter(jwtAuthenticationConverter());
-		http.authorizeRequests().antMatchers(HttpMethod.GET, "/actuator/**").permitAll();
-		http.authorizeRequests().antMatchers(HttpMethod.POST, "/actuator/**").permitAll();
-		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/actuator/**").permitAll();
+		http
+			.cors()
+			.and().csrf().ignoringAntMatchers( "/actuator/**" )
+			.and().headers().frameOptions().sameOrigin()
+			.and().authorizeRequests().antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
+			.and().oauth2ResourceServer().jwt().jwtAuthenticationConverter(jwtAuthenticationConverter());
+//		http.authorizeRequests().antMatchers(HttpMethod.GET, "/actuator/**").permitAll();
+//		http.authorizeRequests().antMatchers(HttpMethod.POST, "/actuator/**").permitAll();
+//		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/actuator/**").permitAll();
 //		http.cors().and().authorizeRequests().mvcMatchers("/books").hasRole("admin");
 		// Require authentication for all requests
 //		http.authorizeRequests().anyRequest().authenticated();
 		// Allow showing pages within a frame
-		http.headers().frameOptions().sameOrigin();
+//		http.headers().frameOptions().sameOrigin();
 	}
 
 	private JwtAuthenticationConverter jwtAuthenticationConverter() {

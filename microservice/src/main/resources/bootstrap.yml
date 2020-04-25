@@ -1,8 +1,7 @@
-
 server:
     port: ${SERVER_PORT}
-    servlet:
-        context-path: /api/
+#  servlet:
+#    context-path: /api/
 
 spring:
     application:
@@ -21,7 +20,7 @@ spring:
         host: localhost
         username: user
         password: user
-##                    TO GET KEYCLOAK ENDPOINTS : http://localhost:8080/auth/realms/TheLibrary/.well-known/openid-configuration
+    ##                    TO GET KEYCLOAK ENDPOINTS : http://localhost:8080/auth/realms/TheLibrary/.well-known/openid-configuration
     security:
         oauth2:
             resourceserver:
@@ -29,6 +28,18 @@ spring:
                     issuer-uri: https://www.auth.thelibrary.mypoc.online/auth/realms/TheLibrary
     zipkin:
         base-url: ${SPRING_ZIPKIN_URL}
+#  boot:
+#    admin:
+#      client:
+#        instance:
+#          management-url: /api/
+#          service-base-url: /api/
+#        api-path: /api/
+#        url: http://localhost:8010/MONITORING/
+#    data:
+#        elasticsearch:
+#            repositories:
+#                enabled: true
 #                    jwk-set-uri: https://www.auth.thelibrary.mypoc.online/auth/realms/TheLibrary/protocol/openid-connect/certs
 
 eureka:
@@ -51,6 +62,10 @@ hystrix:
         enabled: true
 
 management:
+
+    health:
+        elasticsearch:
+            enabled: false
     endpoint:
         health:
             show-details: always
@@ -60,7 +75,7 @@ management:
     endpoints:
         web:
             exposure:
-#                include: hystrix.stream, health, info, *
+                #                include: hystrix.stream, health, info
                 include: "*"
 
 logging:
@@ -75,3 +90,4 @@ logging:
     file:
         path: .
         name: ${spring.application.name}.log
+

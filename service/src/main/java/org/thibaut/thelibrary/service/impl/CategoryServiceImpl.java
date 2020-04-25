@@ -13,8 +13,8 @@ import java.util.List;
 @AllArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
 
-	private CategoryRepository categoryRepository;
-	private CategoryMapper categoryMapper;
+	private final CategoryRepository categoryRepository;
+	private final CategoryMapper categoryMapper;
 
 	@Override
 	public CategoryDTO findById( Long id ){

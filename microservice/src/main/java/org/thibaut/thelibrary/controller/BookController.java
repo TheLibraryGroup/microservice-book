@@ -23,12 +23,12 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/api",produces = MediaType.APPLICATION_JSON_VALUE)
 //@CrossOrigin("*")
 public class BookController {
 
-	private BookService bookService;
-	private ApplicationEventPublisher eventPublisher;
+	private final BookService bookService;
+	private final ApplicationEventPublisher eventPublisher;
 	private static final Logger LOGGER = LoggerFactory.getLogger( BookController.class);
 
 

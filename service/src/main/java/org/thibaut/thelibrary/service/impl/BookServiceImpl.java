@@ -16,13 +16,16 @@ import java.util.List;
 @AllArgsConstructor
 public class BookServiceImpl implements BookService {
 
-	private BookRepository bookRepository;
-	private BookMapper bookMapper;
+	private final BookRepository bookRepository;
+	private final BookMapper bookMapper;
 	private static final Logger LOGGER = LoggerFactory.getLogger(BookServiceImpl.class);
 
 	@Override
 	public BookDTO findById( Long id ){
 		LOGGER.info( "CLASS < BookServiceImpl > - Method < findById > - param < " + id + " >"  );
+		LOGGER.debug( "CLASS < BookServiceImpl > - Method < findById > - param < " + id + " >"  );
+		LOGGER.warn( "CLASS < BookServiceImpl > - Method < findById > - param < " + id + " >"  );
+		LOGGER.trace( "CLASS < BookServiceImpl > - Method < findById > - param < " + id + " >"  );
 		return bookMapper.toDTO( bookRepository.getOne( id ));
 	}
 

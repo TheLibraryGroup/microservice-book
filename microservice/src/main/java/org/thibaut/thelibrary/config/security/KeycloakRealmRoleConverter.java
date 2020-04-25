@@ -1,4 +1,4 @@
-package org.thibaut.thelibrary.config;
+package org.thibaut.thelibrary.config.security;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.core.GrantedAuthority;

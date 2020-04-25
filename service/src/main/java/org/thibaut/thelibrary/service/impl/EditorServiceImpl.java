@@ -13,8 +13,8 @@ import java.util.List;
 @AllArgsConstructor
 public class EditorServiceImpl implements EditorService {
 
-	private EditorRepository editorRepository;
-	private EditorMapper editorMapper;
+	private final EditorRepository editorRepository;
+	private final EditorMapper editorMapper;
 
 	@Override
 	public EditorDTO findById( Long id ){
@@ -36,7 +36,7 @@ public class EditorServiceImpl implements EditorService {
 
 	@Override
 	public EditorDTO save( EditorDTO bookDTO ){
-		editorRepository.save( editorMapper.toEntity( bookDTO/*, new CycleAvoidingMappingContext()*/ ) );
+		editorRepository.save( editorMapper.toEntity( bookDTO ) );
 		return bookDTO;
 	}
 
