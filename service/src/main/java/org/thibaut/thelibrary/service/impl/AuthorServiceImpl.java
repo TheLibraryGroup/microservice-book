@@ -1,5 +1,6 @@
 package org.thibaut.thelibrary.service.impl;
 
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.thibaut.thelibrary.entity.AuthorEntity;
@@ -9,13 +10,10 @@ import org.thibaut.thelibrary.service.contract.AuthorService;
 import java.util.List;
 
 @Component
+@AllArgsConstructor
 public class AuthorServiceImpl implements AuthorService {
 
-	private AuthorRepository authorRepository;
-
-	public AuthorServiceImpl( AuthorRepository authorRepository) {
-		this.authorRepository = authorRepository;
-	}
+	private final AuthorRepository authorRepository;
 
 	@Override
 	public List< AuthorEntity > getAuthorByLastNameAndFirstName( String lastName, String firstName ){
