@@ -37,7 +37,7 @@ public class DbPopulator implements CommandLineRunner {
 
 //		deleteAllThenPopulate( );
 
-		testElastic();
+//		testElastic();
 
 	}
 

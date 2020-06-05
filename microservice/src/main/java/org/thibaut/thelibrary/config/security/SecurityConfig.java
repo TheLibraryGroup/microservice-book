@@ -14,12 +14,9 @@ import org.springframework.security.oauth2.jwt.JwtDecoders;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 
-@Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-@AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -30,14 +27,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.and().headers().frameOptions().sameOrigin()
 			.and().authorizeRequests().antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
 			.and().oauth2ResourceServer().jwt().jwtAuthenticationConverter(jwtAuthenticationConverter());
-//		http.authorizeRequests().antMatchers(HttpMethod.GET, "/actuator/**").permitAll();
-//		http.authorizeRequests().antMatchers(HttpMethod.POST, "/actuator/**").permitAll();
-//		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/actuator/**").permitAll();
-//		http.cors().and().authorizeRequests().mvcMatchers("/books").hasRole("admin");
-		// Require authentication for all requests
-//		http.authorizeRequests().anyRequest().authenticated();
-		// Allow showing pages within a frame
-//		http.headers().frameOptions().sameOrigin();
 	}
 
 	private JwtAuthenticationConverter jwtAuthenticationConverter() {

@@ -25,7 +25,7 @@ spring:
         oauth2:
             resourceserver:
                 jwt:
-                    issuer-uri: https://www.auth.thelibrary.mypoc.online/auth/realms/TheLibrary
+                    issuer-uri: https://www.auth.mypoc.online/auth/realms/TheLibrary
     zipkin:
         base-url: ${SPRING_ZIPKIN_URL}
 #  boot:
@@ -62,7 +62,6 @@ hystrix:
         enabled: true
 
 management:
-
     health:
         elasticsearch:
             enabled: false
@@ -90,4 +89,3 @@ logging:
     file:
         path: .
         name: ${spring.application.name}.log
-

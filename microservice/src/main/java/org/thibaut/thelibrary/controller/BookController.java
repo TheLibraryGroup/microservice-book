@@ -73,7 +73,7 @@ public class BookController {
 
 
 	@PostMapping("/book")
-	@PreAuthorize("hasAnyRole('admin')")
+	@PreAuthorize("hasRole('admin')")
 	public BookDTO save( @RequestBody BookDTO bookDTO, HttpServletResponse response ){
 		try {
 			RestPreconditions.checkFound( bookDTO );
@@ -88,7 +88,7 @@ public class BookController {
 
 
 	@DeleteMapping("/book")
-	@PreAuthorize("hasAnyRole('admin')")
+	@PreAuthorize("hasRole('admin')")
 	public void delete( @PathVariable("id") Long id, HttpServletResponse response ){
 		try {
 			RestPreconditions.checkNull(  id );
